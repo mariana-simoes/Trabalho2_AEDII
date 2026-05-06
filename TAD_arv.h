@@ -9,20 +9,15 @@ typedef struct{
 
 /// ARVORE BINARIA ///
 
-Arv* inicializa();
-Arv* criaArv(int tam);
+Arv* inicializa(Arv*raiz);
+Arv* insereArv(int tam);
 void podaArv();
-void imprime();
 char buscaArv();
 
-//inserção
 
-void preFix();
-void Fix();
-void posFix();
+void preFix(Arv*raiz);
+void Fix(Arv*raiz);
+void posFix(Arv*raiz);
 
-//
-
-/// AVL ///
 
 #endif
