@@ -14,10 +14,10 @@ typedef struct arv {
 
 /// ARVORE BINARIA ///
 
-arv* inicializa(arv*raiz);
+arv* inicializa(void);
 arv* insereArv(arv *raiz, int id, const char *dado); // onde, id, ponteiro para o dado
-void podaArv(arv *raiz); // aqui, toda a árvore é liberada
-char buscaArv(arv *raiz, int id); // onde e qual dado quer buscar
+arv* podaArv(arv *raiz); // aqui, toda a árvore é liberada
+arv* buscaArv(arv *raiz, int id); // onde e qual dado quer buscar
 
 
 /* Percursos da árvore binária. Única diferença entre elas é só quando

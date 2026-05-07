@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "TAD_arv.h"
+#include <stdlib.h>
+#include <string.h> 
 
 /// ARVORE BINARIA ///
 
@@ -46,9 +48,9 @@ arv* buscaArv(arv *raiz, int id) {
     }
        
     if (id < raiz -> id) {
-        return buscarArv (raiz -> esq, id);
+        return buscaArv (raiz -> esq, id);
     }
-    return buscaARv(raiz -> dir, id);
+    return buscaArv(raiz -> dir, id);
 }
 
 
@@ -69,9 +71,9 @@ void preFix(arv*raiz)
 void inFix(arv*raiz) // aqui é o em ordem, que mostra a ordem crescente de ID
 {
     if(raiz){
-        Fix(raiz->esq);
+        inFix(raiz->esq);
         printf("[%d:\"%s\"] ", raiz -> id, raiz -> dado);
-        Fix(raiz->dir);
+        inFix(raiz->dir);
     }
 
 }
