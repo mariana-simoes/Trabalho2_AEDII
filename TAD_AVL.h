@@ -5,8 +5,8 @@
 
 typedef struct{ 
     int dado; 
-    avl* esq;
-    avl* dir;
+    struct avl *esq;
+    struct avl *dir;
     int altura;     // mostra em qual altura está uma folha
 } avl; 
 
