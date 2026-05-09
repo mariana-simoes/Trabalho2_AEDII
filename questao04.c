@@ -43,7 +43,6 @@ int main(){
     for (int i = 0; i < CONSULTAS; i++){
         chaves[i] = elementos[(long)i * N / CONSULTAS];
         // a operacao é convertida para long para evitar overflow
-
     }
    
     //10 repetições
@@ -128,7 +127,7 @@ int main(){
         if (altBST[i] > maxAltBST) maxAltBST = altBST[i];
     }
 
-    printf(" RESUMO FINAL\n");
+    printf("RESUMO FINAL\n");
  
     printf("\nAltura (min – max nas %d execuções):\n", EXECUCOES);
     printf("AVL: %d – %d\n", minAltAVL, maxAltAVL);
@@ -142,8 +141,8 @@ int main(){
            (mCrAVL > mCrBST) ? "mais rápida" : "mais lenta");
  
     printf("\nTempo de busca (média das 30 consultas) — média ± dp  (µs):\n");
-    printf("AVL : %9.4f ± %.4f\n", mBuAVL * 1e6, dBuAVL * 1e6);
-    printf("BST : %9.4f ± %.4f\n", mBuBST * 1e6, dBuBST * 1e6);
+    printf("AVL: %9.4f ± %.4f\n", mBuAVL * 1e6, dBuAVL * 1e6);
+    printf("BST: %9.4f ± %.4f\n", mBuBST * 1e6, dBuBST * 1e6);
     printf("→ A AVL é %.2fx %s que a BST na busca.\n",
            (mBuBST > mBuAVL) ? mBuBST / mBuAVL : mBuAVL / mBuBST,
            (mBuBST > mBuAVL) ? "mais rápida" : "mais lenta");

@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <string.h> 
 
-/// ARVORE BINARIA ///
-
 arv* inicializa(void)
 {
     return NULL;
@@ -112,16 +110,10 @@ void posFixSemDado(arv*raiz)
     }
 }
 
-
-/* aqui, o arquivo será montado. Confesso que eu (por ora) não sei como isso é feito pq eu não
-me lembro como que FILE funciona. Amnahã eu vejo (apagar esse comentário depois peloamordedeus)
-    É usado o percurso em ordem, visto que ele escreve cada pacote em ordem crescente de ID (primeiro esquerda, dps direita).
-*/
-
-void montarArquivo (arv *raiz, FILE *arq) { // arquivo já estará aberto. A função não tem papel de abrir e nem fechar o file.
-    if (raiz) { // caso base da recursão. Se for NULL, não acontece nada.
-        montarArquivo (raiz -> esq, arq); // desce primeeiro pra subarvore esquerda. Todos os IDs à esquerda são menores, então eles serão escritos antes
-        fprintf (arq, "Pacote %03d: %s\n", raiz -> id, raiz -> dado); // Escreve no arquivo o nó atual. Note que o primeiro argumento é o FILE * de destino.
-        montarArquivo (raiz -> dir, arq); // desce para a subárvore direita, que tem IDs maiores.
+void montarArquivo (arv *raiz, FILE *arq) { 
+    if (raiz) { 
+        montarArquivo (raiz -> esq, arq); 
+        fprintf (arq, "Pacote %03d: %s\n", raiz -> id, raiz -> dado); 
+        montarArquivo (raiz -> dir, arq); 
     }
 }

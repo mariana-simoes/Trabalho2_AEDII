@@ -60,7 +60,6 @@ int main(void) {
     posFixSemDado(raiz);
     printf("\n\n");
 
-    //liberar memória
     raiz = podaArv(raiz);
     freeVetor(vet);
 
