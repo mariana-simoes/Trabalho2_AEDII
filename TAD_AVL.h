@@ -3,7 +3,7 @@
 
 /// ARVORE AVL ///
 
-typedef struct{ 
+typedef struct avl { 
     int dado; 
     struct avl *esq;
     struct avl *dir;
@@ -28,5 +28,7 @@ avl* balanceamento(avl*no);
 avl* inserir(avl*no, int num);
 avl* remover(avl*no, int num);
 void imprime(avl*no, int nivel);
+void podaAvl(avl*no);
+avl* busca(avl*no, int num);
 
 #endif

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "TAD_AVL.h"
@@ -27,8 +28,8 @@ int alturaAvl(avl* no){
 avl* rotacaoEsq(avl* no){
     avl *x ,*y;
         
-    x= no->dir;
-    y= x->esq;
+    x = no->dir;
+    y = x->esq;
     x->esq = no; 
     no->dir = y;
 
@@ -91,7 +92,7 @@ avl* balanceamento(avl*no){
     }
     return no;
 }
-
+    //funcao de inserir tambem esta criando a arvore avl 
 avl* inserir(avl*no, int num){
     if(no == NULL){return criaAvl(num);}
     else{
@@ -160,4 +161,19 @@ void imprime(avl*no, int nivel){
             imprime(no->esq,nivel+1);
         }
     }
+}
+
+void podaAvl(avl*no){
+    if(no != NULL){
+        podaAvl(no->esq);
+        podaAvl(no->dir);
+        free(no);
+    }
+}
+
+avl* busca(avl*no, int num){ 
+    avl *p = no;
+    while (p != NULL && p->dado != num)
+        p = (num < p->dado) ? p->esq : p->dir;
+    return p;
 }
