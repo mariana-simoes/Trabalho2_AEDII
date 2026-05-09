@@ -17,7 +17,7 @@ void freeVetor(Vetor *vetor) {
 }
 
 int randGrande() {
-    return (rand() % 2000000) + rand() % 1000;
+    return (rand() * rand()) % 2000000;
 }
 
 void preencherDesordenado(Vetor *vetor) {
