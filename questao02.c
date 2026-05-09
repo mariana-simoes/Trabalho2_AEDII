@@ -84,7 +84,7 @@ int main () {
     if (arq == NULL) {
         fprintf(stderr, "Erro ao criar '%s'.\n", arquivo_saida);
     } else {
-        fprintf(arq, "=== Arquivo montado a partir dos pacotes recebidos ===\n\n");
+        fprintf(arq, "Arquivo montado a partir dos pacotes recebidos\n\n");
         montarArquivo(raiz, arq);
         fclose(arq);
         printf("\nArquivo '%s' gerado com sucesso!\n", arquivo_saida);

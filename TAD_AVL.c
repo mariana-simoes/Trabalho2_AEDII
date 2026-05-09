@@ -3,8 +3,6 @@
 #include <string.h>
 #include "TAD_AVL.h"
 
-    /// ARVORE AVL ///
-
 avl* criaAvl(int num){
     avl* nv = malloc(sizeof(avl));
     if(nv){
@@ -22,8 +20,6 @@ int alturaAvl(avl* no){
     if(no == NULL){return -1;}
     else{return no->altura;}
 }
-    
- ////// ROTAÇÕES //////
 
 avl* rotacaoEsq(avl* no){
     avl *x ,*y;
@@ -62,8 +58,6 @@ avl* rotaEsqDir(avl* no){
     no->esq = rotacaoEsq(no->esq);
     return rotacaoDir(no);
 }
-    
-///////////////////////////////////////////
 
 int fatBalanco(avl* no){
     if(no){
@@ -133,7 +127,7 @@ avl* remover(avl* no, int num) {
             aux = no->esq;
             while (aux->dir != NULL) { aux = aux->dir; }
 
-            int predecessorValor = aux->dado;   //  salva o valor
+            int predecessorValor = aux->dado;//  salva o valor
             no->dado = predecessorValor;
             no->esq = remover(no->esq, predecessorValor); //  remove certo
         }
