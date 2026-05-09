@@ -26,11 +26,18 @@ arv* insereArv(arv *raiz, int id, const char *dado) {
         raiz->esq = insereArv(raiz->esq, id, dado);
     else if (id > raiz->id)
         raiz->dir = insereArv(raiz->dir, id, dado);
-    /* caso id == raiz->id, então temos uma duplicata, logo, ignora */
+    //caso id == raiz->id, então temos uma duplicata, logo, ignora
 
     return raiz;
 }
 
+//retorna a altura da árvore (número de níveis - 1)
+int alturaArv(arv *raiz) {
+    if (raiz == NULL) return -1;
+    int altEsq = alturaArv(raiz->esq);
+    int altDir = alturaArv(raiz->dir);
+    return 1 + (altEsq > altDir ? altEsq : altDir);
+}
 
 arv* podaArv(arv *raiz) {
     if (raiz != NULL) {
@@ -53,38 +60,58 @@ arv* buscaArv(arv *raiz, int id) {
     return buscaArv(raiz -> dir, id);
 }
 
-
-
-/* percursos da árvore ebaaaaaaa
-    Notar que a ordem dos prints importam aqui
-*/
-
-void preFix(arv*raiz)
-{
+//percursos da árvore 
+void preFixComDado(arv*raiz){
     if(raiz){
-        printf("[%d:\"%s\"] ", raiz -> id, raiz -> dado); // %d para o int e o %s para a string
-        preFix(raiz->esq);
-        preFix(raiz->dir);
-    }
-}
-
-void inFix(arv*raiz) // aqui é o em ordem, que mostra a ordem crescente de ID
-{
-    if(raiz){
-        inFix(raiz->esq);
         printf("[%d:\"%s\"] ", raiz -> id, raiz -> dado);
-        inFix(raiz->dir);
+        preFixComDado(raiz->esq);
+        preFixComDado(raiz->dir);
     }
-
 }
-void posFix(arv*raiz)
+
+void preFixSemDado(arv*raiz){
+    if(raiz){
+        printf("%d ", raiz->id);
+        preFixSemDado(raiz->esq);
+        preFixSemDado(raiz->dir);
+    }
+}
+
+// aqui é o em ordem, que mostra a ordem crescente de ID
+void centralComDado(arv*raiz){
+    if(raiz){
+        centralComDado(raiz->esq);
+        printf("[%d:\"%s\"] ", raiz -> id, raiz -> dado);
+        centralComDado(raiz->dir);
+    }
+}
+
+void centralSemDado(arv*raiz){
+    if(raiz){
+        centralSemDado(raiz->esq);
+        printf("%d ", raiz->id);
+        centralSemDado(raiz->dir);
+    }
+}
+
+void posFixComDado(arv*raiz)
 {
     if(raiz){
-        posFix(raiz->esq);
-        posFix(raiz->dir);
+        posFixComDado(raiz->esq);
+        posFixComDado(raiz->dir);
         printf("[%d:\"%s\"] ", raiz -> id, raiz -> dado);
     }
 }
+
+void posFixSemDado(arv*raiz)
+{
+    if(raiz){
+        posFixSemDado(raiz->esq);
+        posFixSemDado(raiz->dir);
+        printf("%d ", raiz -> id);
+    }
+}
+
 
 /* aqui, o arquivo será montado. Confesso que eu (por ora) não sei como isso é feito pq eu não
 me lembro como que FILE funciona. Amnahã eu vejo (apagar esse comentário depois peloamordedeus)
@@ -98,19 +125,3 @@ void montarArquivo (arv *raiz, FILE *arq) { // arquivo já estará aberto. A fun
         montarArquivo (raiz -> dir, arq); // desce para a subárvore direita, que tem IDs maiores.
     }
 }
-
-
-/*
-
-Ela é chamada na main assim:
-
-FILE *arq = fopen("arquivo_montado.txt", "w");  // abre
-if (arq != NULL) {                               // sempre verificar!
-    montarArquivo(raiz, arq);                    // escreve tudo
-    fclose(arq);                                 // fecha
-}
-
-*/
-
-
-

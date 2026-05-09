@@ -12,7 +12,7 @@ typedef struct arv {
     struct arv* dir;
 } arv; 
 
-/// ARVORE BINARIA ///
+// ARVORE BINARIA
 
 arv* inicializa(void);
 arv* insereArv(arv *raiz, int id, const char *dado); // onde, id, ponteiro para o dado
@@ -23,11 +23,15 @@ arv* buscaArv(arv *raiz, int id); // onde e qual dado quer buscar
 /* Percursos da árvore binária. Única diferença entre elas é só quando
 a raiz é visitada em relação aos filhos*/
 
-void preFix(arv*raiz); // pré ordem (raiz -> esquerda -> direita). Visita o nó antes dos filhos
-void inFix(arv*raiz); // em ordem (esquerda -> raiz -> direita). Visita o nó entre os filhos. Produz os elementos na ord. crescente
-void posFix(arv*raiz); // pós ordem (esquerda -> direita -> raiz). Visita o nó depois dos filhos. Útil para liberar a árvore.
+void preFixComDado(arv*raiz); // pré ordem (raiz -> esquerda -> direita). Visita o nó antes dos filhos
+void preFixSemDado(arv*raiz);
+void centralComDado(arv*raiz); // em ordem (esquerda -> raiz -> direita). Visita o nó entre os filhos. Produz os elementos na ord. crescente
+void centralSemDado(arv*raiz);
+void posFixComDado(arv*raiz); // pós ordem (esquerda -> direita -> raiz). Visita o nó depois dos filhos. Útil para liberar a árvore.
+void posFixSemDado(arv*raiz);
 
 void montarArquivo (arv *raiz, FILE *arq);
 
+int alturaArv(arv *raiz); // retorna a altura da árvore
 
 #endif

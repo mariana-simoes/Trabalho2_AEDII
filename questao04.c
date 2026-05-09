@@ -7,14 +7,12 @@
 #include <locale.h>
 #include "estatisticas.h"
 
-#define N         1000000   /* elementos por árvore   */
-#define EXECUCOES 10        /* repetições             */
-#define CONSULTAS 30        /* buscas por execução    */
+#define N 1000000
+#define EXECUCOES 10  
+#define CONSULTAS 30 
 
-/*  FUNCOES UTILITARIAS */
 
-/*Gera um vet de elementos unicos a partir de uma seed
-    */ 
+//Gera um vetor de elementos unicos a partir de uma seed
 static void gerarElementos(int v[], int n, int seed){
     for(int i = 0; i < n; i++){
     v[i] = i;
@@ -28,29 +26,19 @@ static void gerarElementos(int v[], int n, int seed){
     }
 }
 
-/* Verifica a altura de uma arv. binaria de pesquisa */
-static int alturaBinario(arv *no)
-{
-    if (no == NULL) return -1;
-    int e = alturaBinario(no->esq);
-    int d = alturaBinario(no->dir);
-    return 1 + (e > d ? e : d);
-}
-
-//////////////////////////
 int main(){
-    setlocale(LC_ALL, "");
-    // Acumuladores entre execucoes, de tempo e altura das arvores
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+
+    // acumuladores entre execuções, de tempo e altura das árvores
     double tCriacaoAVL[EXECUCOES], tCriacaoBST[EXECUCOES];
-    double tBuscaAVL  [EXECUCOES], tBuscaBST  [EXECUCOES];
-    int    altAVL     [EXECUCOES], altBST     [EXECUCOES];
+    double tBuscaAVL [EXECUCOES], tBuscaBST [EXECUCOES];
+    int altAVL [EXECUCOES], altBST [EXECUCOES];
 
     // gerando sequencia de N elementos
     int *elementos = malloc(N * sizeof(int)); //vetor com o tamanho de N
     gerarElementos(elementos, N, 42); //preenche o vetor
 
-     /* posiciona 30 chaves de busca igualmente espaçadas no vetor
-        logo sempre existem nas árvores. */
+    //posiciona 30 chaves de busca igualmente espaçadas no vetor, logo sempre existem nas árvores. 
     int chaves[CONSULTAS];
     for (int i = 0; i < CONSULTAS; i++){
         chaves[i] = elementos[(long)i * N / CONSULTAS];
@@ -58,10 +46,10 @@ int main(){
 
     }
    
-    /* Execução das 10 repetições */
+    //10 repetições
    for (int exec = 0; exec < EXECUCOES; exec++) {
  
-        printf("-- Execução %2d -------------------------------------------\n", exec + 1);
+        printf("Execução %2d \n", exec + 1);
  
         //Criação da AVL
         avl *raizAVL = NULL;
@@ -71,18 +59,18 @@ int main(){
         tCriacaoAVL[exec] = tempoAtual() - t0;
         altAVL[exec] = (raizAVL != NULL) ? raizAVL->altura : -1;
  
-        //Criação da BINARIO
+        //Criação da binária
         arv *raizBST = inicializa();
         t0 = tempoAtual();
         for (int i = 0; i < N; i++) {
             char buf[TAM];
-            snprintf(buf, TAM, "%d", elementos[i]);   /* dado = repr. textual */
+            snprintf(buf, TAM, "%d", elementos[i]);   //dado = repr. textual
             raizBST = insereArv(raizBST, elementos[i], buf);
         }
         tCriacaoBST[exec] = tempoAtual() - t0;
-        altBST[exec] = alturaBinario(raizBST);
+        altBST[exec] = alturaArv(raizBST);
 
-            /* -------- 30 buscas na AVL -------- */
+        //30 buscas na AVL
         double temposBAVL[CONSULTAS];
         for (int c = 0; c < CONSULTAS; c++) {
             t0 = tempoAtual();
@@ -93,7 +81,7 @@ int main(){
         double dBAVL = desvioPadrao(temposBAVL, CONSULTAS, mBAVL);
         tBuscaAVL[exec] = mBAVL;
  
-        /* -------- 30 buscas na BST -------- */
+        // 30 buscas na BST
         double temposBBST[CONSULTAS];
         for (int c = 0; c < CONSULTAS; c++) {
             t0 = tempoAtual();
@@ -104,7 +92,7 @@ int main(){
         double dBBST = desvioPadrao(temposBBST, CONSULTAS, mBBST);
         tBuscaBST[exec] = mBBST;
  
-        /* -------- relatório da execução -------- */
+        //Relatório da execução 
         printf("  Criação  AVL : %9.3f ms  |  altura = %d\n",
                tCriacaoAVL[exec] * 1e3, altAVL[exec]);
         printf("  Criação  BST : %9.3f ms  |  altura = %d\n",
@@ -114,23 +102,21 @@ int main(){
         printf("  Busca    BST : média = %.4f µs  dp = %.4f µs  (%d consultas)\n\n",
                mBBST * 1e6, dBBST * 1e6, CONSULTAS);
  
-        /* libera memória antes da próxima rodada */
+        //libera memória antes da próxima rodada
         podaAvl(raizAVL);
         podaArv(raizBST);
     }
 
-    /* ================================================================
-       RESUMO FINAL (média ± dp entre as 10 execuções)
-       ================================================================ */
+    //RESUMO FINAL (média ± dp entre as 10 execuções)
     double mCrAVL = media(tCriacaoAVL, EXECUCOES);
     double mCrBST = media(tCriacaoBST, EXECUCOES);
-    double mBuAVL = media(tBuscaAVL,   EXECUCOES);
-    double mBuBST = media(tBuscaBST,   EXECUCOES);
+    double mBuAVL = media(tBuscaAVL, EXECUCOES);
+    double mBuBST = media(tBuscaBST, EXECUCOES);
  
     double dCrAVL = desvioPadrao(tCriacaoAVL, EXECUCOES, mCrAVL);
     double dCrBST = desvioPadrao(tCriacaoBST, EXECUCOES, mCrBST);
-    double dBuAVL = desvioPadrao(tBuscaAVL,   EXECUCOES, mBuAVL);
-    double dBuBST = desvioPadrao(tBuscaBST,   EXECUCOES, mBuBST);
+    double dBuAVL = desvioPadrao(tBuscaAVL, EXECUCOES, mBuAVL);
+    double dBuBST = desvioPadrao(tBuscaBST, EXECUCOES, mBuBST);
  
     /* altura mínima e máxima ao longo das execuções */
     int minAltAVL = altAVL[0], maxAltAVL = altAVL[0];
@@ -142,25 +128,23 @@ int main(){
         if (altBST[i] > maxAltBST) maxAltBST = altBST[i];
     }
 
-    printf("==========================================================\n");
-    printf("                     RESUMO FINAL\n");
-    printf("==========================================================\n");
+    printf(" RESUMO FINAL\n");
  
-    printf("\n  Altura (min – max nas %d execuções):\n", EXECUCOES);
-    printf("    AVL : %d – %d\n", minAltAVL, maxAltAVL);
-    printf("    BST : %d – %d\n", minAltBST, maxAltBST);
+    printf("\nAltura (min – max nas %d execuções):\n", EXECUCOES);
+    printf("AVL: %d – %d\n", minAltAVL, maxAltAVL);
+    printf("BST: %d – %d\n", minAltBST, maxAltBST);
  
-    printf("\n  Tempo de criação — média ± dp  (ms):\n");
-    printf("    AVL : %9.3f ± %.3f\n", mCrAVL * 1e3, dCrAVL * 1e3);
-    printf("    BST : %9.3f ± %.3f\n", mCrBST * 1e3, dCrBST * 1e3);
-    printf("    → A BST é %.2fx %s que a AVL na criação.\n",
+    printf("\nTempo de criação — média ± dp  (ms):\n");
+    printf("AVL: %9.3f ± %.3f\n", mCrAVL * 1e3, dCrAVL * 1e3);
+    printf("BST: %9.3f ± %.3f\n", mCrBST * 1e3, dCrBST * 1e3);
+    printf("→ A BST é %.2fx %s que a AVL na criação.\n",
            (mCrAVL > mCrBST) ? mCrAVL / mCrBST : mCrBST / mCrAVL,
            (mCrAVL > mCrBST) ? "mais rápida" : "mais lenta");
  
-    printf("\n  Tempo de busca (média das 30 consultas) — média ± dp  (µs):\n");
-    printf("    AVL : %9.4f ± %.4f\n", mBuAVL * 1e6, dBuAVL * 1e6);
-    printf("    BST : %9.4f ± %.4f\n", mBuBST * 1e6, dBuBST * 1e6);
-    printf("    → A AVL é %.2fx %s que a BST na busca.\n",
+    printf("\nTempo de busca (média das 30 consultas) — média ± dp  (µs):\n");
+    printf("AVL : %9.4f ± %.4f\n", mBuAVL * 1e6, dBuAVL * 1e6);
+    printf("BST : %9.4f ± %.4f\n", mBuBST * 1e6, dBuBST * 1e6);
+    printf("→ A AVL é %.2fx %s que a BST na busca.\n",
            (mBuBST > mBuAVL) ? mBuBST / mBuAVL : mBuAVL / mBuBST,
            (mBuBST > mBuAVL) ? "mais rápida" : "mais lenta");
  

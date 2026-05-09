@@ -1,5 +1,5 @@
-#ifndef VETOR_H
-#define VETOR_H
+#ifndef TAD_VETOR_H
+#define TAD_VETOR_H
 
 typedef struct {
     int *dados;
@@ -13,14 +13,15 @@ void preencherDesordenado(Vetor *vetor);
 void preencherOrdenado(Vetor *vetor);
 void copiarVetor(Vetor *origem, Vetor *destino);
 int obterValor(Vetor *vetor, int indice);
-
 int buscaSequencialEmVetor(Vetor *vetor, int alvo);
 int buscaBinaria(Vetor *vetor, int alvo);
-
-void bubbleSort(Vetor *v);
-void selectionSort(Vetor *v);
-void insertionSort(Vetor *v);
-void mergeSort(Vetor *v, int inicio, int fim);
-void quickSort(Vetor* v, int inicio, int fim);
+void troca(int *a, int *b);
+void bubbleSort(Vetor *vet);
+void selectionSort(Vetor *vet);
+void insertionSort(Vetor *vet);
+void merge(Vetor *vet, int inicio, int meio, int fim);
+void mergeSort(Vetor* vet, int inicio, int fim);
+int particiona(Vetor* vet, int inicio, int fim);
+void quickSort(Vetor* vet, int inicio, int fim);
 
 #endif
