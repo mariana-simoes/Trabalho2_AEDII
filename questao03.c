@@ -65,6 +65,9 @@ int main(){
         tempo_total = fim - inicio;
         tempos_vetor[i+15] = tempo_total;
     }
+    for(int i = 0; i < 30; i++){
+        printf("Tempos de busca %d:\n\n    Tempo %d Arvore: %.15lf    Tempo %d Vetor: %.15lf\n\n\n",i+1,i+1,tempos_arvore[i],i+1,tempos_vetor[i]);
+    }
     double media_arvore = media(tempos_arvore,30);
     double media_vetor = media(tempos_vetor,30);
 
