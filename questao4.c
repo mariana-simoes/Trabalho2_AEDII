@@ -16,7 +16,9 @@
 /*Gera um vet de elementos unicos a partir de uma seed
     */ 
 static void gerarElementos(int v[], int n, int seed){
-    for(int i=0; i<n; i++){v[i] = i++;}
+    for(int i = 0; i < n; i++){
+    v[i] = i;
+}
     srand(seed);
     for(int i=n-1; i>0; i--){
         int j = rand() % (i+1);
