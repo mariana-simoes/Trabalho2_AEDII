@@ -48,7 +48,7 @@ int main(){
 
     }
     for(int i = 0; i < 15; i++){
-        int elementoBuscado = randGrande();
+        int elementoBuscado = randGrande(N);
         double inicio = tempoAtual();
         
         buscaArv(raiz,elementoBuscado);

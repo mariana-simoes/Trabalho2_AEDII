@@ -16,13 +16,13 @@ void freeVetor(Vetor *vetor) {
     }
 }
 
-int randGrande() {
-    return (rand() * rand()) % 2000000;
+int randGrande(int limite) {
+    return (rand() * rand()) % (limite*2);
 }
 
 void preencherDesordenado(Vetor *vetor) {
     for (int i = 0; i < vetor->tamanho; i++) {
-        vetor->dados[i] = randGrande();
+        vetor->dados[i] = randGrande(vetor->tamanho);
     }
 }
 
@@ -30,7 +30,7 @@ void preencherOrdenado(Vetor *vetor) {
     int valorAtual = 0;
     for (int i = 0; i < vetor->tamanho; i++) {
         vetor->dados[i] = valorAtual;
-        valorAtual += (randGrande() % 10) + 1;
+        valorAtual += (randGrande(vetor->tamanho) % 10) + 1;
     }
 }
 

@@ -8,7 +8,7 @@ typedef struct {
 
 Vetor* criarVetor(int tamanho);
 void freeVetor(Vetor *vetor);
-int randGrande();
+int randGrande(int limite);
 void preencherDesordenado(Vetor *vetor);
 void preencherOrdenado(Vetor *vetor);
 void copiarVetor(Vetor *origem, Vetor *destino);
