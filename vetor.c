@@ -17,7 +17,9 @@ void freeVetor(Vetor *vetor) {
 }
 
 int randGrande(int limite) {
-    return (rand() * rand()) % (limite*2);
+    long long r = (long long)rand() * RAND_MAX + rand();
+    
+    return r % (limite * 2);
 }
 
 void preencherDesordenado(Vetor *vetor) {
